@@ -1,0 +1,15 @@
+.header {
+  background: var(--main-bg-color);
+  padding: 30px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

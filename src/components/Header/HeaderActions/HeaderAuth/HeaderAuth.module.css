@@ -1,0 +1,6 @@
+@value primary-brand-color from '../../../../css/variables.module.css';
+
+.link {
+  text-decoration: none;
+  color: primary-brand-color;
+}

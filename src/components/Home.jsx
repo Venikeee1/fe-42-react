@@ -1,14 +1,35 @@
+import { Component } from 'react';
 import { Container } from './Container';
+import { Button } from './ui/Button';
 
-export const Home = () => {
-  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = isDarkMode ? 'dark' : 'light';
+export class Home extends Component {
+  state = {
+    title: 'FE-42 the best',
+    buttonColor: 'primary',
+  };
 
-  return (
-    <main className="main">
-      <Container>
-        <h1>This is {theme} mode</h1>
-      </Container>
-    </main>
-  );
-};
+  handleButtonColorChange = () => {
+    this.setState((prevState) => {
+      const isPrimary = prevState.buttonColor === 'primary';
+
+      return {
+        buttonColor: isPrimary ? 'alert' : 'primary',
+      };
+    });
+  };
+
+  render() {
+    const { buttonColor, title } = this.state;
+
+    return (
+      <main className="main">
+        <Container>
+          <h1>{title}</h1>
+          <Button color={buttonColor} onClick={this.handleButtonColorChange}>
+            Click me
+          </Button>
+        </Container>
+      </main>
+    );
+  }
+}

@@ -1,0 +1,60 @@
+@value primary-brand-color from '../../../css/variables.module.css';
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  min-width: 150px;
+  border: none;
+  font-size: 10px;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.buttonPrimary {
+  background: primary-brand-color;
+}
+
+.buttonAlert {
+  background: red;
+}
+
+.circle {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 50%;
+  border-color: #fff;
+  border-style: solid;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.circleSmall {
+  border-width: 6px;
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+.circleMedium {
+  border-width: 4px;
+  width: 70%;
+  padding-bottom: 70%;
+}
+
+.circleLarge {
+  border-width: 2px;
+  width: 90%;
+  padding-bottom: 90%;
+}

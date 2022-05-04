@@ -1,0 +1,13 @@
+@value inputBoxShadow from '../../../css/variables.module.css';
+@value inputMinHeight from '../../../css/variables.module.css';
+@value inputPadding from '../../../css/variables.module.css';
+
+.textarea {
+  box-shadow: inputBoxShadow;
+  min-height: inputMinHeight;
+  padding: inputPadding;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: none;
+  resize: none;
+}

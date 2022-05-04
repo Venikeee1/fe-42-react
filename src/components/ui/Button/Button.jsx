@@ -44,7 +44,7 @@ export class Button extends Component {
 }
 
 Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   className: PropTypes.string,
-  color: PropTypes.oneOf('primary', 'alert', 'warning'),
+  color: PropTypes.oneOf(['primary', 'alert', 'warning']),
 };

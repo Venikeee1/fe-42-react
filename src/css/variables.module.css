@@ -1,2 +1,5 @@
 @value dark-color: #000;
 @value primary-brand-color: #78D64B;
+@value inputBoxShadow: 1px 3px 5px 3px rgba(120, 214, 75, 0.3);
+@value inputMinHeight: 48px;
+@value inputPadding: 11px 16px;

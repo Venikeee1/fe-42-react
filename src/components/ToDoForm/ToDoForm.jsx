@@ -4,8 +4,10 @@ import { Input } from '../ui/Input';
 import PropTypes from 'prop-types';
 import styles from './ToDoForm.module.css';
 import { Textarea } from '../ui/Textarea/Textarea';
+import { nanoid } from 'nanoid';
 
 const INITIAL_STATE = {
+  __id__: '',
   title: '',
   description: '',
   toDoFirst: false,
@@ -16,15 +18,23 @@ export class ToDoForm extends Component {
     ...INITIAL_STATE,
   };
 
-  // handleInputChange = (name) => (event) => {
-  //   const { target } = event;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.initialState) {
+      return prevState;
+    }
 
-  //   this.setState(() => ({
-  //     [name]: target.value,
-  //   }));
-  // };
+    if (nextProps.initialState.id !== prevState.__id__) {
+      const { id, ...restProps } = nextProps.initialState;
 
-  //Розгорнутий запис handleInputChange
+      return {
+        __id__: id,
+        ...restProps,
+      };
+    }
+
+    return prevState;
+  }
+
   handleInputChange = (name) => {
     return (event) => {
       const { target } = event;
@@ -35,13 +45,37 @@ export class ToDoForm extends Component {
     };
   };
 
+  createItem = () => {
+    const { onSubmit } = this.props;
+    const formData = {
+      id: nanoid(),
+      title: this.state.title,
+      description: this.state.description,
+      toDoFirst: this.state.toDoFirst,
+    };
+
+    onSubmit && onSubmit(formData, this.resetForm);
+  };
+
+  updateItem = () => {
+    const { onUpdate, initialState } = this.props;
+
+    const formData = {
+      id: initialState.id,
+      title: this.state.title,
+      description: this.state.description,
+      toDoFirst: this.state.toDoFirst,
+    };
+
+    onUpdate && onUpdate(formData, this.resetForm);
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
-    const { onSubmit } = this.props;
 
-    onSubmit && onSubmit(this.state, this.resetForm);
-    // аналог запису вище
-    // onSubmit?.(this.sate)
+    const { initialState } = this.props;
+
+    initialState ? this.updateItem() : this.createItem();
   };
 
   resetForm = () => {
@@ -50,47 +84,17 @@ export class ToDoForm extends Component {
     }));
   };
 
-  example = () => {
-    // приклад використання замикання
-    const handleTitleChange = this.handleInputChange('title');
-    // const handleTitleChange = (event) => {
-    //   const { target } = event;
+  shouldComponentUpdate(props, state) {
+    if (state.title === 'say') {
+      return false;
+    }
 
-    //   this.setState(() => ({
-    //     title: target.value,
-    //   }));
-    // };
+    return true;
+  }
 
-    handleTitleChange({
-      target: {
-        value: 11111,
-      },
-    });
-  };
-
-  // handleTitleCHange = (event) => {
-  //   const { target } = event;
-
-  //   this.setState(() => ({
-  //     title: target.value,
-  //   }));
-  // };
-
-  // handleDescriptionChange = (event) => {
-  //   const { target } = event;
-
-  //   this.setState(() => ({
-  //     description: target.value,
-  //   }));
-  // };
-
-  // handleToDoFirstChange = (event) => {
-  //   const { target } = event;
-
-  //   this.setState(() => ({
-  //     toDoFirst: target.checked,
-  //   }));
-  // };
+  componentDidCatch(error) {
+    console.log(error, '----error');
+  }
 
   render() {
     const { title, description, toDoFirst } = this.state;
@@ -135,7 +139,16 @@ export class ToDoForm extends Component {
             onChange={this.handleInputChange('toDoFirst')}
           />
         </div>
-        <Button>Submit</Button>
+        {this.props.initialState ? (
+          <>
+            <Button type="button" color="plain">
+              Cancel
+            </Button>
+            <Button>Update</Button>
+          </>
+        ) : (
+          <Button>Create</Button>
+        )}
       </form>
     );
   }
@@ -143,4 +156,10 @@ export class ToDoForm extends Component {
 
 ToDoForm.propTypes = {
   onSubmit: PropTypes.func,
+  onUpdate: PropTypes.func,
+  initialState: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    toDoFirst: PropTypes.bool,
+  }),
 };

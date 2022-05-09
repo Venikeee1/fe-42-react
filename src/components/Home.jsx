@@ -1,65 +1,97 @@
 import { Component } from 'react';
 import { Container } from './Container';
 import { ToDoForm } from './ToDoForm';
-import styles from './Home.module.css';
-import { Button } from './ui/Button';
-import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
+import { ToDoItem } from './ToDoItem/ToDoItem';
 
 const TO_DO_LIST_KEY = 'toDoList';
 
 export class Home extends Component {
   state = {
+    isOpen: false,
     title: 'FE-42 the best',
-    toDoList: localStorage.getItem(TO_DO_LIST_KEY)
-      ? JSON.parse(localStorage.getItem(TO_DO_LIST_KEY))
-      : [],
+    itemToEdit: null,
+    toDoList: [],
   };
 
   handleSubmit = (formData, resetForm) => {
+    const newToDo = {
+      ...formData,
+    };
+
     this.setState((prevState) => ({
-      toDoList: [...prevState.toDoList, formData],
+      toDoList: [...prevState.toDoList, newToDo],
     }));
-    localStorage.setItem(
-      TO_DO_LIST_KEY,
-      JSON.stringify([...this.state.toDoList, formData])
-    );
+
     resetForm();
   };
 
-  handleDeleteItem = (title) => {
-    this.setState(
-      (prevState) => ({
-        toDoList: prevState.toDoList.filter((item) => item.title !== title),
-      }),
-      () => {
-        localStorage.setItem(
-          TO_DO_LIST_KEY,
-          JSON.stringify(this.state.toDoList)
-        );
-      }
-    );
+  handleDeleteItem = (id) => {
+    this.setState((prevState) => ({
+      toDoList: prevState.toDoList.filter((item) => item.id !== id),
+    }));
   };
 
+  handleEditItem = (id) => {
+    this.setState((prevState) => {
+      const itemToEdit = prevState.toDoList.find(
+        (element) => element.id === id
+      );
+
+      return {
+        itemToEdit,
+      };
+    });
+  };
+
+  handleUpdateItem = (updatedToDo, resetForm) => {
+    this.setState(({ toDoList }) => ({
+      itemToEdit: null,
+      toDoList: toDoList.map((toDoItem) => {
+        if (toDoItem.id === updatedToDo.id) {
+          return updatedToDo;
+        }
+
+        return toDoItem;
+      }),
+    }));
+    resetForm();
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.toDoList !== this.state.toDoList) {
+      localStorage.setItem(TO_DO_LIST_KEY, JSON.stringify(this.state.toDoList));
+    }
+  }
+
+  componentDidMount() {
+    this.setState((prevState) => ({
+      toDoList: localStorage.getItem(TO_DO_LIST_KEY)
+        ? JSON.parse(localStorage.getItem(TO_DO_LIST_KEY))
+        : [],
+    }));
+  }
+
   render() {
-    const { title, toDoList } = this.state;
+    const { title, toDoList, itemToEdit } = this.state;
 
     return (
       <main className="main">
         <Container>
           <h1>{title}</h1>
-          <ToDoForm onSubmit={this.handleSubmit} />
-
+          <ToDoForm
+            initialState={itemToEdit}
+            onSubmit={this.handleSubmit}
+            onUpdate={this.handleUpdateItem}
+          />
           {toDoList.map((item) => (
-            <div className={styles.toDoItem} key={item.title}>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-              <Button
-                onClick={() => this.handleDeleteItem(item.title)}
-                color="alert"
-              >
-                Delete
-              </Button>
-            </div>
+            <ToDoItem
+              key={item.title}
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              onDelete={this.handleDeleteItem}
+              onEdit={this.handleEditItem}
+            />
           ))}
         </Container>
       </main>

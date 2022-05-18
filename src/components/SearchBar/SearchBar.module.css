@@ -1,0 +1,13 @@
+.searchBar {
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.label {
+  display: block;
+  margin: 5px 0;
+}
+
+.input {
+  width: 100%;
+}

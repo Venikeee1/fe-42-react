@@ -31,7 +31,6 @@ export class Clock extends Component {
     this.setState(this.getCurrentTime());
 
     this.timerId.current = setInterval(() => {
-      // console.log('interval');
       this.setState(this.getCurrentTime());
     }, 1000);
   }

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { fetchArticles } from '../services/articles';
 import { Clock } from './Clock';
 import { Container } from './Container';
+import { Example } from './example';
 import { ToDoForm } from './ToDoForm';
 import { ToDoItem } from './ToDoItem/ToDoItem';
 import { Request } from './utils/Request';
@@ -15,6 +16,7 @@ export class Home extends Component {
     itemToEdit: null,
     toDoList: [],
     showClock: true,
+    articles: [],
   };
 
   handleSubmit = (formData, resetForm) => {
@@ -80,18 +82,29 @@ export class Home extends Component {
         : [],
     }));
 
-    // const data = await fetchArticles();
+    const { data } = await fetchArticles();
 
-    // console.log(data);
+    this.setState((prevState) => ({
+      articles: [...prevState.articles, ...data.hits],
+    }));
+
+    console.log(data.hits);
   }
 
   render() {
-    const { title, toDoList, itemToEdit, showClock } = this.state;
+    const { title, toDoList, itemToEdit, showClock, articles } = this.state;
 
     return (
       <main className="main">
         <Container>
           <h1>{title}</h1>
+          {showClock && <Example />}
+
+          <ul>
+            {articles.map((article) => {
+              return <li>{article.title}</li>;
+            })}
+          </ul>
           <Request request={fetchArticles}>
             {({ data, loading, error }) => {
               if (loading) {
@@ -103,7 +116,6 @@ export class Home extends Component {
               }
 
               if (data) {
-                console.log(data.data);
                 return <div>Article amount {data.data.nbHits}</div>;
               }
             }}

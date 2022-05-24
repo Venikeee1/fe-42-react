@@ -1,11 +1,22 @@
+import { NavLink } from 'react-router-dom';
+
 import style from './HeaderNavItem.module.css';
 
 export const HeaderNavItem = ({ label, link }) => {
   return (
     <li className={style.item}>
-      <a className={style.itemLink} href={link}>
+      <NavLink
+        to={link}
+        className={({ isActive }) => {
+          return isActive
+            ? [style.itemLink, style.active].join(' ')
+            : style.itemLink;
+        }}
+      >
         {label}
-      </a>
+      </NavLink>
     </li>
   );
 };
+
+// style.itemLink

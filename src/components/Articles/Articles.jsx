@@ -9,6 +9,7 @@ export const Articles = ({ items }) => {
         return (
           <Article
             key={article.objectID}
+            id={article.objectID}
             title={article.title}
             tags={article.tags}
           />

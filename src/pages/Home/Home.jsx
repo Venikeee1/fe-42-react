@@ -4,7 +4,7 @@ import { Articles } from '../../components/Articles';
 import { Container } from '../../components/Container';
 import { SearchBar } from '../../components/SearchBar';
 import { Loader } from '../../components/Loader';
-import { MainLayout } from '../../layouts/MainLayout';
+import { Outlet } from 'react-router-dom';
 
 import styles from './Home.module.css';
 import { Pagination } from '../../components/Pagination';
@@ -42,16 +42,20 @@ export const Home = () => {
     asyncRequest();
   }, [query, page]);
 
+  const timerIsActive = 0;
+
   return (
-    <MainLayout>
+    <>
       {loading && <Loader />}
+      <Outlet />
       <Container>
         <main className={styles.main}>
+          {!!timerIsActive && <div>Hello</div>}
           <SearchBar onChange={handleChange} />
           <Pagination pagesLimit={totalPage} onChange={handlePageChange} />
           <Articles items={articles} />
         </main>
       </Container>
-    </MainLayout>
+    </>
   );
 };

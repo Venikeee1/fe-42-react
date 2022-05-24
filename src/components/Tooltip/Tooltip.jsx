@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styles from './Tooltip.module.css';
 
 const positionReducer = (action) => {
-  console.log(action);
   switch (action.type) {
     case 'top':
       return { class: styles.tooltipTop };

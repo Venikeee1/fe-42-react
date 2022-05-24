@@ -1,4 +1,5 @@
 @value dark-color from '../../../../css/variables.module.css';
+@value main-color from '../../../../css/variables.module.css';
 
 .item {
   margin-right: 50px;
@@ -15,4 +16,8 @@
   font-size: 10px;
   letter-spacing: 0.015;
   text-decoration: none;
+}
+
+.active {
+  color: red;
 }

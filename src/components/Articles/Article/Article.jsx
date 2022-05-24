@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Article.module.css';
 
-export const Article = ({ title, tags }) => {
+export const Article = ({ title, id }) => {
+  const articleLink = `/articles/${id}`;
+
   return (
     <div className={styles.article}>
       <img
@@ -10,6 +13,7 @@ export const Article = ({ title, tags }) => {
         alt=""
       />
       <h2 className={styles.title}>{title}</h2>
+      <Link to={articleLink}>View article</Link>
     </div>
   );
 };

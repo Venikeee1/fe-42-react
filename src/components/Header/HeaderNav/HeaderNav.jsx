@@ -7,8 +7,8 @@ const NAV_ITEMS = [
     link: '',
   },
   {
-    label: 'About Platform',
-    link: '',
+    label: 'Articles',
+    link: '/articles',
   },
   {
     label: 'FAQ',

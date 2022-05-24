@@ -87,8 +87,6 @@ export class Home extends Component {
     this.setState((prevState) => ({
       articles: [...prevState.articles, ...data.hits],
     }));
-
-    console.log(data.hits);
   }
 
   render() {

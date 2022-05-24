@@ -1,0 +1,17 @@
+.container {
+  max-width: 650px;
+  width: 100%;
+  margin: 120px auto 40px;
+}
+
+.image {
+  width: 100%;
+}
+
+.title {
+  font-size: 30px;
+}
+
+.author {
+  font-size: 12px;
+}

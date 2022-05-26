@@ -1,0 +1,19 @@
+.notify {
+  width: 300px;
+  min-height: 20px;
+  padding: 40px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.error {
+  background: red;
+}
+
+.success {
+  background: green;
+}
+
+.warning {
+  background: orange;
+}

@@ -92,10 +92,6 @@ export class ToDoForm extends Component {
     return true;
   }
 
-  componentDidCatch(error) {
-    console.log(error, '----error');
-  }
-
   render() {
     const { title, description, toDoFirst } = this.state;
 

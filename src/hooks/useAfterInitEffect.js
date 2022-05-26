@@ -9,5 +9,5 @@ export const useAfterInitEffect = (cb, deps) => {
     }
 
     mounted.current = true;
-  }, [...deps]);
+  }, deps);
 };

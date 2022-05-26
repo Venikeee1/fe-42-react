@@ -1,32 +1,33 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { Article } from './pages/Article';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { Modal } from './components/Modal';
+import { routesPaths } from './routerSettings/settings';
 
 import './App.css';
 
-const routesPaths = {
-  articles: '/articles',
-};
+const HomePage = lazy(() => import('./pages/Home'));
+const ArticlePage = lazy(() => import('./pages/Article'));
 
 function App() {
   return (
     <MainLayout>
       <div className="App">
         <div className="content">
-          <Routes basename="alex">
-            <Route path={routesPaths.articles} element={<Home />}>
-              {/* Приклда дочірнього роута */}
-              {/* <Route path=":id" element={<Article />} /> */}
-              <Route path="modal" element={<Modal>Hello</Modal>} />
-            </Route>
-            <Route path="/articles/:id" element={<Article />} />
-            <Route
-              path="*"
-              element={<Navigate to={routesPaths.articles} replace />}
-            />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path={routesPaths.articles} element={<HomePage />}>
+                {/* Приклда дочірнього роута */}
+                {/* <Route path=":id" element={<Article />} /> */}
+                <Route path="modal" element={<Modal>Hello</Modal>} />
+              </Route>
+              <Route path={routesPaths.article} element={<ArticlePage />} />
+              <Route
+                path="*"
+                element={<Navigate to={routesPaths.articles} replace />}
+              />
+            </Routes>
+          </Suspense>
           {/* <Modal>Hello</Modal> */}
         </div>
       </div>

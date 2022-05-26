@@ -25,26 +25,12 @@ export const Example = () => {
     setText(value);
   };
 
-  // componentDidMount
-  useLayoutEffect(() => {
-    const id = setInterval(() => {
-      // console.log('helllo');
-    }, 1000);
-
-    // componentWillUnmount
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
-
   // componentDidUpdate
   useEffect(() => {
     if (isFirstRenderRef.current) {
       isFirstRenderRef.current = false;
       return;
     }
-
-    console.log(`text is updated: ${text}`);
   }, [text]);
 
   return (

@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { routesPaths } from '../../../routerSettings/settings';
+
 import styles from './Article.module.css';
 
 export const Article = ({ title, id }) => {
-  const articleLink = `/articles/${id}`;
+  const articleLink = generatePath(routesPaths.article, { id });
 
   return (
     <div className={styles.article}>

@@ -26,7 +26,7 @@ export const Home = () => {
   );
 
   useEffect(() => {
-    // if (!error) return;
+    if (!error) return;
 
     setNotifications((prevState) => [
       {

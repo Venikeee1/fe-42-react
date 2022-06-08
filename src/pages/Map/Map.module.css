@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+  margin-top: 130px;
+}
+
+.content {
+  display: flex;
+  margin-top: 30px;
+  width: 100%;
+  column-gap: 20px;
+}
+
+.map {
+  position: relative;
+  width: 70%;
+  background: purple;
+  height: 400px;
+}
+
+.markers {
+  width: 30%;
+  background: lightblue;
+  padding: 20px;
+}
+
+:global(.mapboxgl-ctrl-bottom-right) {
+  display: none;
+}

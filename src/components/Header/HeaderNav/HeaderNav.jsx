@@ -3,20 +3,12 @@ import style from './HeaderNav.module.css';
 
 const NAV_ITEMS = [
   {
-    label: 'PLANTS CATALOG',
-    link: '',
-  },
-  {
     label: 'Articles',
     link: '/articles',
   },
   {
-    label: 'FAQ',
-    link: '',
-  },
-  {
-    label: 'Blog',
-    link: '',
+    label: 'Map',
+    link: '/map',
   },
 ];
 

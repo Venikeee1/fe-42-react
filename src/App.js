@@ -8,6 +8,7 @@ import './App.css';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const ArticlePage = lazy(() => import('./pages/Article'));
+const Map = lazy(() => import('./pages/Map'));
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="modal" element={<Modal>Hello</Modal>} />
               </Route>
               <Route path={routesPaths.article} element={<ArticlePage />} />
+              <Route path={routesPaths.map} element={<Map />} />
               <Route
                 path="*"
                 element={<Navigate to={routesPaths.articles} replace />}

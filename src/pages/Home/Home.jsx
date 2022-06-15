@@ -16,8 +16,7 @@ export const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get('page') || 1);
   const [query, setQuery] = useState(searchParams.get('query') || '');
-  const context = useGetArticlesQuery({ page, query });
-  const { data, isFetching, error } = context;
+  const { data, isFetching, error } = useGetArticlesQuery({ page, query });
 
   useEffect(() => {
     if (error) {

@@ -21,7 +21,7 @@ export const usePagination = ({
   const goToNextPage = useCallback(() => {
     if (currentPage >= pagesLimit) return;
 
-    setCurrentPage((prevState) => prevState + 1);
+    setCurrentPage((prevState) => +prevState + 1);
   }, [currentPage, pagesLimit]);
 
   const goToPrevPage = useCallback(() => {

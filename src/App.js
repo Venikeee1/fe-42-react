@@ -10,6 +10,7 @@ const HomePage = lazy(() => import('./pages/Home'));
 const ArticlePage = lazy(() => import('./pages/Article'));
 const Map = lazy(() => import('./pages/Map'));
 const Registration = lazy(() => import('./pages/Registration'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
   return (
@@ -25,7 +26,11 @@ function App() {
               </Route>
               <Route path={routesPaths.article} element={<ArticlePage />} />
               <Route path={routesPaths.map} element={<Map />} />
-              <Route path="/registration" element={<Registration />} />
+              <Route
+                path={routesPaths.registration}
+                element={<Registration />}
+              />
+              <Route path={routesPaths.login} element={<Login />} />
               <Route
                 path="*"
                 element={<Navigate to={routesPaths.articles} replace />}

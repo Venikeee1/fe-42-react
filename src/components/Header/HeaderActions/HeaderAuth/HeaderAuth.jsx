@@ -1,15 +1,16 @@
+import { Link } from 'react-router-dom';
 import style from './HeaderAuth.module.css';
 
 export const HeaderAuth = () => {
   return (
     <div>
-      <a className={style.link} href="/login">
+      <Link className={style.link} to="/login">
         Log in
-      </a>{' '}
+      </Link>{' '}
       /{' '}
-      <a className={style.link} href="/register">
+      <Link className={style.link} to="/registration">
         Join
-      </a>
+      </Link>
     </div>
   );
 };

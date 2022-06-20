@@ -2,23 +2,24 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import fruitsReducer from './fruits';
-import userReducer from './user';
 import markerReducer from './markers';
 import articlesReducer from './articles';
-import { loggerMiddleware } from './loggerMiddleware';
 import { articlesApi } from './queries/articlesQuery';
+import authReducer from './auth/auth';
+import userReducer from './user';
 
 const persistConfig = {
-  key: 'userLocation',
+  key: 'store',
   storage,
-  whitelist: ['user', 'markers'],
+  whitelist: ['user', 'markers', 'auth'],
 };
 
 const rootReducer = combineReducers({
   fruits: fruitsReducer,
-  user: userReducer,
   markers: markerReducer,
   articles: articlesReducer,
+  auth: authReducer,
+  user: userReducer,
   [articlesApi.reducerPath]: articlesApi.reducer,
 });
 
@@ -27,7 +28,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(loggerMiddleware, articlesApi.middleware),
+    getDefaultMiddleware().concat(articlesApi.middleware),
 });
 
 export const persistor = persistStore(store);

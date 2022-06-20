@@ -1,7 +1,8 @@
+import { forwardRef } from 'react';
 import styles from './Input.module.css';
 
-export const Input = ({ className, ...props }) => {
+export const Input = forwardRef(({ className, ...props }, ref) => {
   const classList = [styles.input, className].join(' ');
 
-  return <input {...props} className={classList} type="text" />;
-};
+  return <input ref={ref} type="text" {...props} className={classList} />;
+});

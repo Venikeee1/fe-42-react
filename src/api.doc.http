@@ -1,0 +1,30 @@
+@baseUrl = https://connections-api.herokuapp.com/users
+### Registration
+
+POST {{baseUrl}}/signup
+  Content-type: application/json
+
+  {
+    "name": "venikeee",
+    "email": "alexxx@gmail.com",
+    "password": "q1234567"
+  }
+
+### login
+# @name authLogin
+POST {{baseUrl}}/login
+  Content-type: application/json
+
+  {
+    "email": "alexxx@gmail.com",
+    "password": "q1234567"
+  }
+
+### Check session
+GET {{baseUrl}}/current
+  Authorization: Bearer {{authLogin.response.body.token}}
+  
+### logout
+POST {{baseUrl}}/logout
+  Authorization: Bearer {{authLogin.response.body.token}}
+  

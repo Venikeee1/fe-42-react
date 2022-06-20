@@ -62,3 +62,7 @@
   width: 90%;
   padding-bottom: 90%;
 }
+
+.fullWidth {
+  width: 100%;
+}

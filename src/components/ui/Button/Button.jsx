@@ -4,26 +4,13 @@ import cx from 'classnames';
 import styles from './Button.module.css';
 
 export class Button extends Component {
-  /* Правильній спосіб оновлення компонента */
-
-  // updateCounter() {
-  //   this.setState((prevState) => ({
-  //     counter: prevState.counter + 1,
-  //   }));
-  //   this.setState((prevState) => ({
-  //     counter: prevState.counter + 1,
-  //   }));
-  //   this.setState((prevState) => ({
-  //     counter: prevState.counter + 1,
-  //   }));
-  // }
-
   render() {
     const {
       onClick,
       children,
       className,
       color = 'primary',
+      fullWidth = false,
       ...restProps
     } = this.props;
 
@@ -31,6 +18,7 @@ export class Button extends Component {
       [styles.buttonPrimary]: color === 'primary',
       [styles.buttonAlert]: color === 'alert',
       [styles.buttonPlain]: color === 'plain',
+      [styles.fullWidth]: fullWidth,
     });
 
     return (
@@ -48,4 +36,5 @@ Button.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
   color: PropTypes.oneOf(['primary', 'alert', 'warning', 'plain']),
+  fullWidth: PropTypes.bool,
 };

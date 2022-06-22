@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export const http = {
-  get(url) {
-    return axios.get(url);
+  get(url, options) {
+    return axios.get(url, options);
   },
-  post(url, body) {
-    return axios.post(url, body);
+  post(url, body, options) {
+    return axios.post(url, body, options);
   },
 };

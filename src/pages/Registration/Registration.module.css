@@ -1,3 +1,7 @@
 .registrationAction {
   margin: 15px 0;
 }
+
+.error {
+  color: red;
+}

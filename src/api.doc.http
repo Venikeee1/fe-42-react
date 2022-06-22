@@ -16,8 +16,8 @@ POST {{baseUrl}}/login
   Content-type: application/json
 
   {
-    "email": "alexxx@gmail.com",
-    "password": "q1234567"
+    "email": "super@ua.com",
+    "password": "qwerty1"
   }
 
 ### Check session

@@ -1,8 +1,12 @@
 import cx from 'classnames';
 import style from './IconButton.module.css';
 
-export const IconButton = ({ children, className }) => {
+export const IconButton = ({ children, className, ...restProps }) => {
   const classList = cx(style.button, className);
 
-  return <button className={classList}>{children}</button>;
+  return (
+    <button {...restProps} className={classList}>
+      {children}
+    </button>
+  );
 };

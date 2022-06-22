@@ -3,11 +3,11 @@ import { Button } from '../../components/ui/Button/Button';
 import { Input } from '../../components/ui/Input/Input';
 import { Label } from '../../components/ui/Label/Label';
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../services/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/auth/auth';
+import { registerUser } from '../../store/auth/auth';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './Registration.module.css';
 
@@ -25,6 +25,7 @@ const registerSchema = yup.object().shape({
 });
 
 const Registration = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(registerSchema),
@@ -35,8 +36,8 @@ const Registration = () => {
     const { name, email, password } = data;
 
     try {
-      const newUser = await registerUser({ name, email, password });
-      dispatch(setUser(newUser));
+      await dispatch(registerUser({ name, email, password })).unwrap();
+      navigate('/articles');
     } catch (error) {
       console.warn(error);
     }
@@ -47,15 +48,17 @@ const Registration = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">Name</Label>
         <Input {...register('name')} id="name" type="text" />
-        {errors.name && <p>{errors.name.message}</p>}
+        {errors.name && <p className={styles.error}>{errors.name.message}</p>}
 
         <Label htmlFor="email">Email</Label>
         <Input {...register('email')} id="email" type="email" />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
         <Label htmlFor="password">Password</Label>
         <Input {...register('password')} id="password" type="password" />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && (
+          <p className={styles.error}>{errors.password.message}</p>
+        )}
 
         <Label htmlFor="passwordConfirm">Confirm password</Label>
         <Input
@@ -63,7 +66,9 @@ const Registration = () => {
           id="passwordConfirm"
           type="password"
         />
-        {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
+        {errors.passwordConfirm && (
+          <p className={styles.error}>{errors.passwordConfirm.message}</p>
+        )}
         <div className={styles.registrationAction}>
           <Button fullWidth>Register</Button>
         </div>
